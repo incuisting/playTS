@@ -8,11 +8,13 @@ configure({ adapter: new Adapter() });
 export interface Props {
     name: string;
     enthusiasmLevel?: number;
+    onIncrement?: () => void;
+    onDecrement?: () => void;
 }
 
 class Hello extends React.Component<Props, object> {
     render() {
-        const { name, enthusiasmLevel = 1 } = this.props;
+        const { name, enthusiasmLevel = 1, onIncrement, onDecrement } = this.props;
 
         if (enthusiasmLevel <= 0) {
             throw new Error('You could be a little more enthusiastic. :D');
@@ -22,6 +24,10 @@ class Hello extends React.Component<Props, object> {
             <div className="hello">
                 <div className="greeting">
                     Hello {name + getExclamationMarks(enthusiasmLevel)}
+                </div>
+                <div>
+                    <button onClick={onDecrement}>-</button>
+                    <button onClick={onIncrement}>+</button>
                 </div>
             </div>
         );
